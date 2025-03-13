@@ -170,18 +170,19 @@
 		}
 
 		.mobile-menu-button {
-			display: flex;
-			flex-direction: column;
-			justify-content: center;
-			align-items: center;
+			position: relative;
 			width: 44px;
 			height: 44px;
 			border-radius: 8px;
-			background: rgba(0, 0, 0, 0.2);
-			transition: all 0.3s ease;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			background: transparent;
+			cursor: pointer;
+			transition: background 0.3s ease;
 		}
 			.mobile-menu-button:hover {
-				background: rgba(0, 0, 0, 0.3);
+				background: rgba(255, 255, 255, 0.1);
 			}
 		.mobile-menu {
 			max-height: 0;
@@ -318,15 +319,27 @@
 			color: rgba(0,0,0,0.7) !important;
 		}
 		.hamburger-line {
+			position: absolute;
 			width: 24px;
 			height: 2px;
-			background: rgba(255, 255, 255, 0.95);
-			margin: 3px 0;
-			transition: all 0.3s ease;
-			border-radius: 2px;
+			background: #fff;
+			border-radius: 1px;
+			transition: transform 0.4s ease, opacity 0.4s ease;
 		}
+			.hamburger-line:nth-child(1) {
+				transform: translateY(-6px);
+			}
+
+			.hamburger-line:nth-child(2) {
+				transform: translateY(0);
+			}
+
+			.hamburger-line:nth-child(3) {
+				transform: translateY(6px);
+			}
+
 		.mobile-menu-button.active .hamburger-line:nth-child(1) {
-			transform: translateY(7px) rotate(45deg);
+			transform: translateY(0) rotate(45deg);
 		}
 
 		.mobile-menu-button.active .hamburger-line:nth-child(2) {
@@ -334,7 +347,7 @@
 		}
 
 		.mobile-menu-button.active .hamburger-line:nth-child(3) {
-			transform: translateY(-7px) rotate(-45deg);
+			transform: translateY(0) rotate(-45deg);
 		}
 	</style>
     <script src="https://cdn.tailwindcss.com"></script>
@@ -344,7 +357,7 @@
 </head>
 
 <body>
-    <!-- Enhanced Navigation -->
+    <!-- Navigation -->
     <nav>
         <div class="nav-container px-4 sm:px-6">
             <a href="#home" class="inline-block">
@@ -364,7 +377,7 @@
             <!-- Mobile Toggle -->
             <button class="md:hidden mobile-menu-button"
                     onclick="toggleMobileMenu()"
-                    aria-label="Toggle menu"
+                    aria-label="Toggle menu">
                 <span class="hamburger-line"></span>
                 <span class="hamburger-line"></span>
                 <span class="hamburger-line"></span>
@@ -411,7 +424,7 @@
         </div>
     </section>
 
-    <!-- Enhanced About Section -->
+    <!-- About Section -->
     <section id="about" class="py-32 border-t border-white/10">
         <div class="container mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-24">
             <div class="col-span-1" data-aos="fade-right">
@@ -427,7 +440,6 @@
                         <div class="text-4xl font-bold mb-4 text-white">50+</div>
                         <div class="text-white/80 font-medium">Players Engaged</div>
                     </div>
-                    <!-- Repeat similar structure for other stats -->
                     <div class="stats-card p-6 rounded-xl transition-all duration-500">
                         <div class="text-4xl font-bold mb-4 text-white">1+</div>
                         <div class="text-white/80 font-medium">Years Experience</div>
@@ -441,14 +453,14 @@
         </div>
     </section>
 
-    <!-- Enhanced Work Section -->
+    <!-- Work Section -->
 	<section id="work" class="py-32 bg-white text-black">
 		<div class="container mx-auto px-6">
 			<div class="flex justify-between items-end mb-24">
 				<h2 class="section-heading text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight">Our Creations</h2>
 			</div>
 			<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-				<!-- Project Card 1 -->
+
 				<div class="bg-white rounded-2xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-300 group relative isolate"
 					 data-aos="fade-up">
 					<div class="relative aspect-video overflow-hidden">
@@ -474,7 +486,6 @@
 					</div>
 				</div>
 
-				<!-- Project Card 2 -->
 				<div class="bg-white rounded-2xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-300 group relative isolate"
 					 data-aos="fade-up">
 					<div class="relative aspect-video overflow-hidden">
@@ -500,7 +511,6 @@
 					</div>
 				</div>
 
-				<!-- Project Card 3 -->
 				<div class="bg-white rounded-2xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-300 group relative isolate"
 					 data-aos="fade-up">
 					<div class="relative aspect-video overflow-hidden">
@@ -529,7 +539,7 @@
 		</div>
 	</section>
 
-    <!-- Enhanced Team Section -->
+    <!-- Team Section -->
     <section id="team" class="py-32 border-t border-white/10">
         <div class="container mx-auto px-6">
             <h2 class="section-heading text-5xl font-bold mb-24 text-center tracking-tight">The Architects</h2>
@@ -549,7 +559,6 @@
                         </div>
                     </div>
                 </div>
-                <!-- Repeat for other team member -->
                 <div class="team-card grid grid-cols-1 md:grid-cols-2 gap-8 items-center" data-aos="fade-up">
                     <div class="order-1">
                         <img src="profile.jpg" alt="Vahid Pakdaman"
@@ -569,44 +578,50 @@
         </div>
     </section>
 
-    <!-- Enhanced Contact Section -->
-    <section id="contact" class="py-32 bg-white/5 backdrop-blur-lg">
-        <div class="contact-card container mx-auto px-6 max-w-4xl py-16">
-            <div class="text-center mb-24 fade-in" data-aos="fade-up">
-                <h2 class="section-heading text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight">Get in Touch</h2>
-                <p class="text-base sm:text-lg md:text-xl text-black/80 mt-4">Let's create the next big thing together</p>
-            </div>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-24" data-aos="fade-up">
-                <div class="space-y-4">
-                    <div class="text-lg md:text-2xl font-bold text-black">Jaroo Studio HQ</div>
-                    <p class="text-sm md:text-lg text-black/80">
-                        Jaroo Studio Office<br>
-                        Mashhad
-                    </p>
-                </div>
-                <div class="space-y-4">
-                    <div class="text-lg md:text-2xl font-bold text-black">Connect With Us</div>
-                    <div class="space-y-4">
-                        <a href="mailto:contact.jaroostudio@gmail.com"
-                           class="inline-block break-all text-black/80 hover:text-black transition-colors pr-4">
-                            <i class="fas fa-envelope mr-2"></i>contact.jaroostudio@gmail.com
-                        </a>
-                        <div class="flex flex-wrap gap-6 mt-6">
-                            <a href="https://x.com/jaroostudio" class="text-black/80 hover:text-black transition-colors">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="w-6 h-6" fill="currentColor">
-                                    <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
-                                </svg>
-                            </a>
-                            <a href="https://www.instagram.com/jaroo.studio/"
-                               class="text-black/80 hover:text-black transition-colors">
-                                <i class="fab fa-instagram text-2xl"></i>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+    <!-- Contact Section -->
+	<section id="contact" class="py-32 bg-white/5 backdrop-blur-lg">
+		<div class="contact-card mx-auto px-6 py-16 max-w-4xl">
+			<div class="text-center mb-24" data-aos="fade-up">
+				<h2 class="section-heading text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight">
+					Get in Touch
+				</h2>
+				<p class="text-base sm:text-lg md:text-xl text-black/80 mt-4">
+					Let's create the next big thing together
+				</p>
+			</div>
+			<div class="grid grid-cols-1 md:grid-cols-2 gap-12 place-items-center" data-aos="fade-up">
+				<div class="text-center">
+					<h3 class="text-lg md:text-2xl font-bold text-black">Jaroo Studio HQ</h3>
+					<p class="text-sm md:text-lg text-black/80 mt-2">
+						Jaroo Studio Office<br>
+						Mashhad
+					</p>
+				</div>
+				<div class="text-center">
+					<h3 class="text-lg md:text-2xl font-bold text-black">Connect With Us</h3>
+					<div class="flex flex-col items-center space-y-4 mt-2">
+						<a href="mailto:contact.jaroostudio@gmail.com"
+						   class="inline-block break-all text-black/80 hover:text-black transition-colors">
+							<i class="fas fa-envelope mr-2"></i>contact.jaroostudio@gmail.com
+						</a>
+						<div class="flex gap-6">
+							<a href="https://x.com/jaroostudio"
+							   class="text-black/80 hover:text-black transition-colors inline-flex items-center">
+								<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+									 class="w-6 h-6" fill="currentColor">
+									<path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+								</svg>
+							</a>
+							<a href="https://www.instagram.com/jaroo.studio/"
+							   class="text-black/80 hover:text-black transition-colors inline-flex items-center">
+								<i class="fab fa-instagram text-2xl"></i>
+							</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
 
     <script>
         function smoothScroll(target) {
