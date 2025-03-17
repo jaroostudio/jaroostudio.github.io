@@ -1,46 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
-    <title>Jaroo Studio</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+	<title>Jaroo Studio</title>
 	<style>
-		/* Rest of your existing styles... */
-		@keyframes float {
-			0%, 100% {
-				transform: translateY(0);
-			}
-
-			50% {
-				transform: translateY(-20px);
-			}
-		}
-
-		/* ... (keep all existing styles exactly as they were) ... */
-
-		body {
-			background: #fff;
-			color: #000;
-			overflow-x: hidden;
-			transition: background-color 0.3s ease, color 0.3s ease;
-		}
-
-		/* Mobile menu dark mode fix */
-		.mobile-menu {
-			background: rgba(255,255,255,0.95);
-			backdrop-filter: blur(20px);
-		}
-
-		/****************************/
-		/* Add dark mode specific adjustments */
-
-		/* Enhanced dark mode transitions */
-		body {
-			transition: background-color 0.3s ease, color 0.3s ease;
-		}
-
-		/****************************/
 		@keyframes float {
 			0%, 100% {
 				transform: translateY(0);
@@ -73,38 +37,6 @@
 			}
 		}
 
-		.particle {
-			position: absolute;
-			background: rgba(255,255,255,0.5);
-			border-radius: 50%;
-			animation: particleFloat 5s infinite linear;
-			box-shadow: 0 0 10px rgba(255,255,255,0.3);
-		}
-
-		.glow {
-			background: rgba(255,223,0,0.6);
-			box-shadow: 0 0 20px rgba(255,223,0,0.5);
-		}
-
-		.float-anim {
-			animation: elegantFloat 5s cubic-bezier(0.25, 0.46, 0.45, 0.94) infinite;
-			transform-origin: center;
-			position: relative;
-		}
-
-			.float-anim::after {
-				content: '';
-				position: absolute;
-				top: 0;
-				left: 0;
-				width: 100%;
-				height: 100%;
-				background: linear-gradient(45deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.05) 50%, rgba(255,255,255,0.1) 100%);
-				border-radius: 10%;
-				mix-blend-mode: overlay;
-				animation: gradientFlow 6s ease-in-out infinite;
-			}
-
 		@keyframes gradientFlow {
 			0%, 100% {
 				background-position: 0% 0%;
@@ -113,17 +45,6 @@
 			50% {
 				background-position: 100% 100%;
 			}
-		}
-
-		.floating-particles {
-			position: absolute;
-			width: 100%;
-			height: 100%;
-			pointer-events: none;
-		}
-
-		.particle {
-			animation: particleFloat 5s infinite linear, twinkle 2s infinite ease-in-out;
 		}
 
 		@keyframes twinkle {
@@ -153,11 +74,21 @@
 			}
 		}
 
+		html {
+			scrollbar-width: none;
+			-ms-overflow-style: none;
+		}
+
+		html::-webkit-scrollbar {
+			display: none;
+		}
 		body {
 			background: #000;
 			color: #fff;
 			overflow-x: hidden;
+			transition: background-color 0.3s ease, color 0.3s ease;
 		}
+
 
 		nav {
 			position: fixed;
@@ -166,6 +97,21 @@
 			backdrop-filter: blur(10px);
 			border-bottom: 1px solid rgba(255,255,255,0.15);
 			z-index: 50;
+		}
+
+		.nav-container {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			padding: 1.25rem 1rem;
+			max-width: 1200px;
+			margin: 0 auto;
+		}
+
+		.nav-logo {
+			height: 40px;
+			width: auto;
+			flex-shrink: 0;
 		}
 
 		.nav-link {
@@ -189,20 +135,6 @@
 				width: 100%;
 			}
 
-		.nav-container {
-			display: flex;
-			justify-content: space-between;
-			align-items: center;
-			padding: 1.25rem 1rem;
-			max-width: 1200px;
-			margin: 0 auto;
-		}
-
-		.nav-logo {
-			height: 40px;
-			width: auto;
-			flex-shrink: 0;
-		}
 
 		.mobile-menu-button {
 			position: relative;
@@ -216,9 +148,11 @@
 			cursor: pointer;
 			transition: background 0.3s ease;
 		}
+
 			.mobile-menu-button:hover {
 				background: rgba(255, 255, 255, 0.1);
 			}
+
 		.mobile-menu {
 			max-height: 0;
 			overflow: hidden;
@@ -227,9 +161,44 @@
 			backdrop-filter: blur(20px);
 		}
 
-		.mobile-menu.active {
-			max-height: 500px;
+			.mobile-menu.active {
+				max-height: 500px;
+			}
+
+		.hamburger-line {
+			position: absolute;
+			width: 24px;
+			height: 2px;
+			background: #fff;
+			border-radius: 1px;
+			transition: transform 0.4s ease, opacity 0.4s ease;
 		}
+
+			.hamburger-line:nth-child(1) {
+				transform: translateY(-6px);
+			}
+
+			.hamburger-line:nth-child(2) {
+				transform: translateY(0);
+			}
+
+			.hamburger-line:nth-child(3) {
+				transform: translateY(6px);
+			}
+
+		.mobile-menu-button.active .hamburger-line:nth-child(1) {
+			transform: translateY(0) rotate(45deg);
+		}
+
+		.mobile-menu-button.active .hamburger-line:nth-child(2) {
+			opacity: 0;
+		}
+
+		.mobile-menu-button.active .hamburger-line:nth-child(3) {
+			transform: translateY(0) rotate(-45deg);
+		}
+
+
 
 		.stats-card {
 			background: rgba(255,255,255,0.05);
@@ -264,134 +233,56 @@
 		}
 
 		.section-heading {
-			background: linear-gradient(45deg, #fff 0%, #aaa 100%);
-			-webkit-background-clip: text;
-			-webkit-text-fill-color: transparent;
+			background: none;
+			-webkit-background-clip: initial;
+			-webkit-text-fill-color: initial;
+			color: inherit;
 		}
 
-		.project-card {
+
+		.floating-particles {
+			position: absolute;
+			width: 100%;
+			height: 100%;
+			pointer-events: none;
+		}
+
+		.particle {
+			position: absolute;
+			background: rgba(255,255,255,0.5);
+			border-radius: 50%;
+			box-shadow: 0 0 10px rgba(255,255,255,0.3);
+			animation: particleFloat 5s infinite linear, twinkle 2s infinite ease-in-out;
+		}
+
+		.glow {
+			background: rgba(255,223,0,0.6);
+			box-shadow: 0 0 20px rgba(255,223,0,0.5);
+		}
+
+		.float-anim {
+			animation: elegantFloat 5s cubic-bezier(0.25, 0.46, 0.45, 0.94) infinite;
+			transform-origin: center;
 			position: relative;
-			overflow: hidden;
-			transition: transform 0.3s ease;
-            display: flex;
-            flex-direction: column;
 		}
 
-		.project-image-container {
-			flex: 1;
-			overflow: hidden;
-			position: relative;
-		}
-
-			.project-card::before {
+			.float-anim::after {
 				content: '';
 				position: absolute;
-				inset: 0;
-				background: linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.7) 100%);
-				opacity: 0;
-				transition: opacity 0.3s ease;
+				top: 0;
+				left: 0;
+				width: 100%;
+				height: 100%;
+				background: linear-gradient(45deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.05) 50%, rgba(255,255,255,0.1) 100%);
+				border-radius: 10%;
+				mix-blend-mode: overlay;
+				animation: gradientFlow 6s ease-in-out infinite;
 			}
-
-			.project-card:hover::before {
-				opacity: 1;
-			}
-
-		.project-content {
-			padding: 1.5rem;
-			background: white;
-			z-index: 2;
-		}
-		.project-title {
-			position: absolute;
-			bottom: 0;
-			left: 0;
-			padding: 1.5rem;
-			background: linear-gradient(0deg, rgba(0,0,0,0.8) 0%, transparent 100%);
-			transform: translateY(100%);
-			transition: transform 0.3s ease;
-			z-index: 2;
-			color: white;
-			width: 100%;
-		}
-
-			.project-title h3 {
-				text-shadow: 0 2px 4px rgba(0,0,0,0.5);
-			}
-
-			.project-title p {
-				color: rgba(255,255,255,0.9);
-				text-shadow: 0 1px 2px rgba(0,0,0,0.3);
-			}
-
-		.project-card:hover .project-title {
-			transform: translateY(0);
-		}
-
-		#work .section-heading {
-			color: #000;
-			background: linear-gradient(45deg, #000 0%, #444 100%);
-			-webkit-background-clip: text;
-			-webkit-text-fill-color: transparent;
-		}
-
-		#contact .section-heading {
-			background: linear-gradient(45deg, #000 0%, #444 100%);
-			-webkit-background-clip: text;
-			-webkit-text-fill-color: transparent;
-		}
-
-		#contact .contact-card {
-			background: rgba(255,255,255,0.98);
-		}
-
-		#contact .text-lg,
-		#contact .text-md,
-		#contact .font-bold {
-			color: rgba(0,0,0,0.9) !important;
-		}
-		#contact p,
-		#contact .text-black {
-			color: rgba(0,0,0,0.9) !important;
-		}
-		#contact a:hover {
-			color: rgba(0,0,0,0.7) !important;
-		}
-		.hamburger-line {
-			position: absolute;
-			width: 24px;
-			height: 2px;
-			background: #fff;
-			border-radius: 1px;
-			transition: transform 0.4s ease, opacity 0.4s ease;
-		}
-			.hamburger-line:nth-child(1) {
-				transform: translateY(-6px);
-			}
-
-			.hamburger-line:nth-child(2) {
-				transform: translateY(0);
-			}
-
-			.hamburger-line:nth-child(3) {
-				transform: translateY(6px);
-			}
-
-		.mobile-menu-button.active .hamburger-line:nth-child(1) {
-			transform: translateY(0) rotate(45deg);
-		}
-
-		.mobile-menu-button.active .hamburger-line:nth-child(2) {
-			opacity: 0;
-		}
-
-		.mobile-menu-button.active .hamburger-line:nth-child(3) {
-			transform: translateY(0) rotate(-45deg);
-		}
 	</style>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" media="print" onload="this.media='all'">
+	<script src="https://cdn.tailwindcss.com"></script>
+	<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+	<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" media="print" onload="this.media='all'">
 </head>
 
 <body class="dark">
@@ -399,11 +290,8 @@
 	<nav>
 		<div class="nav-container px-4 sm:px-6">
 			<a href="#home" class="inline-block">
-				<img src="logogo.png" alt="Jaroo Studio"
-					 class="nav-logo transition-transform duration-300 hover:scale-110"
-					 data-aos="fade-right">
+				<img src="logogo.png" alt="Jaroo Studio" class="nav-logo transition-transform duration-300 hover:scale-110" data-aos="fade-right">
 			</a>
-
 			<!-- Desktop Navigation -->
 			<div class="hidden md:flex items-center gap-6">
 				<a href="#about" class="nav-link text-black/90 hover:text-black dark:text-white/90 dark:hover:text-white">About</a>
@@ -411,17 +299,13 @@
 				<a href="#team" class="nav-link text-black/90 hover:text-black dark:text-white/90 dark:hover:text-white">Team</a>
 				<a href="#contact" class="nav-link text-black/90 hover:text-black dark:text-white/90 dark:hover:text-white">Contact</a>
 			</div>
-
 			<!-- Mobile Toggle -->
-			<button class="md:hidden mobile-menu-button"
-					onclick="toggleMobileMenu()"
-					aria-label="Toggle menu">
+			<button class="md:hidden mobile-menu-button" onclick="toggleMobileMenu()" aria-label="Toggle menu">
 				<span class="hamburger-line"></span>
 				<span class="hamburger-line"></span>
 				<span class="hamburger-line"></span>
 			</button>
 		</div>
-
 		<!-- Mobile Navigation -->
 		<div class="mobile-menu md:hidden border-t border-black/10 dark:border-white/10">
 			<div class="container mx-auto px-4 py-6 flex flex-col gap-6">
@@ -453,8 +337,7 @@
 					<div class="particle glow" style="left:20%; top:80%; width:8px; height:8px; animation-delay:1.8s"></div>
 					<div class="particle glow" style="left:80%; top:20%; width:8px; height:8px; animation-delay:2.9s"></div>
 				</div>
-				<img src="hero-logo.png" alt="Jaroo Studio"
-					 class="mx-auto w-3/4 max-w-4xl float-anim">
+				<img src="hero-logo.png" alt="Jaroo Studio" class="mx-auto w-3/4 max-w-4xl float-anim">
 			</div>
 			<p class="text-base sm:text-lg md:text-xl text-white/80 tracking-widest font-light">
 				CRAFTING NEXT-LEVEL GAMING EXPERIENCES
@@ -470,8 +353,7 @@
 			</div>
 			<div class="col-span-2 space-y-12" data-aos="fade-left">
 				<p class="text-base sm:text-lg md:text-xl leading-relaxed text-white/90 tracking-wide">
-					We pioneer immersive digital worlds where technology and creativity collide to deliver unforgettable gaming
-					experiences.
+					We pioneer immersive digital worlds where technology and creativity collide to deliver unforgettable gaming experiences.
 				</p>
 				<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
 					<div class="stats-card p-6 rounded-xl transition-all duration-500">
@@ -497,18 +379,12 @@
 			<div class="flex justify-between items-end mb-12">
 				<h2 class="section-heading text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight">Our Creations</h2>
 			</div>
-
-			<!-- Responsive Grid: 1 col on mobile, 2 cols on small, 3 cols on medium+ -->
 			<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
-
 				<!-- Card 1 -->
 				<div class="group relative flex flex-col overflow-hidden rounded-2xl shadow-lg transition-transform duration-300 hover:scale-105" data-aos="fade-up">
-					<!-- Top: Image container -->
 					<div class="relative w-full aspect-video overflow-hidden">
 						<img src="project1.png" alt="Emotional Damage" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110">
 					</div>
-
-					<!-- Bottom: Text area -->
 					<div class="bg-black/60 px-6 py-6 flex-grow flex flex-col backdrop-blur-md">
 						<div class="flex items-center space-x-3">
 							<div class="p-3 bg-gray-800/60 rounded-lg shadow-md">
@@ -531,12 +407,9 @@
 
 				<!-- Card 2 -->
 				<div class="group relative flex flex-col overflow-hidden rounded-2xl shadow-lg transition-transform duration-300 hover:scale-105" data-aos="fade-up">
-					<!-- Top: Image container -->
 					<div class="relative w-full aspect-video overflow-hidden">
 						<img src="project2.png" alt="Emotional Damage" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110">
 					</div>
-
-					<!-- Bottom: Text area -->
 					<div class="bg-black/60 px-6 py-6 flex-grow flex flex-col backdrop-blur-md">
 						<div class="flex items-center space-x-3">
 							<div class="p-3 bg-gray-800/60 rounded-lg shadow-md">
@@ -559,12 +432,9 @@
 
 				<!-- Card 3 -->
 				<div class="group relative flex flex-col overflow-hidden rounded-2xl shadow-lg transition-transform duration-300 hover:scale-105" data-aos="fade-up">
-					<!-- Top: Image container -->
 					<div class="relative w-full aspect-video overflow-hidden">
 						<img src="project3.png" alt="Emotional Damage" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110">
 					</div>
-
-					<!-- Bottom: Text area -->
 					<div class="bg-black/60 px-6 py-6 flex-grow flex flex-col backdrop-blur-md">
 						<div class="flex items-center space-x-3">
 							<div class="p-3 bg-gray-800/60 rounded-lg shadow-md">
@@ -589,9 +459,6 @@
 		</div>
 	</section>
 
-
-
-
 	<!-- Team Section -->
 	<section id="team" class="py-32 border-t border-white/10">
 		<div class="container mx-auto px-6">
@@ -599,8 +466,7 @@
 			<div class="space-y-16">
 				<div class="team-card grid grid-cols-1 md:grid-cols-2 gap-8 items-center" data-aos="fade-up">
 					<div class="order-1">
-						<img src="profile2.jpg" alt="Vahid Pakdaman"
-							 class="w-full h-[300px] object-cover rounded-2xl shadow-lg transition-transform duration-500 hover:scale-105">
+						<img src="profile2.jpg" alt="Vahid Pakdaman" class="w-full h-[300px] object-cover rounded-2xl shadow-lg transition-transform duration-500 hover:scale-105">
 					</div>
 					<div class="order-2 space-y-4 relative z-10">
 						<h3 class="text-2xl font-extrabold">Vahid Pakdaman</h3>
@@ -614,8 +480,7 @@
 				</div>
 				<div class="team-card grid grid-cols-1 md:grid-cols-2 gap-8 items-center" data-aos="fade-up">
 					<div class="order-1">
-						<img src="profile.jpg" alt="Hamidreza Yaghoubi"
-							 class="w-full h-[300px] object-cover rounded-2xl shadow-lg transition-transform duration-500 hover:scale-105">
+						<img src="profile.jpg" alt="Hamidreza Yaghoubi" class="w-full h-[300px] object-cover rounded-2xl shadow-lg transition-transform duration-500 hover:scale-105">
 					</div>
 					<div class="order-2 space-y-4 relative z-10">
 						<h3 class="text-2xl font-extrabold">Hamidreza Yaghoubi</h3>
@@ -635,20 +500,10 @@
 	<section id="contact" class="py-32 bg-white/5 backdrop-blur-lg">
 		<div class="contact-card mx-auto px-6 py-16 max-w-4xl">
 			<div class="text-center mb-24" data-aos="fade-up">
-				<h2 class="section-heading text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight">
-					Get in Touch
-				</h2>
-				<p class="text-base sm:text-lg md:text-xl text-black/80 mt-4">
-					Let's create the next big thing together
-				</p>
+				<h2 class="section-heading text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-black">Get in Touch</h2>
+				<p class="text-base sm:text-lg md:text-xl text-black/80 mt-4">Let's create the next big thing together</p>
 			</div>
-			<!--
-			   grid-cols-1 on mobile => each item is full width stacked
-			   md:grid-cols-2 => side-by-side columns on larger screens
-			   place-items-center => center each column horizontally
-			-->
 			<div class="grid grid-cols-1 md:grid-cols-2 gap-12 place-items-center" data-aos="fade-up">
-				<!-- Left Column -->
 				<div class="text-center">
 					<h3 class="text-lg md:text-2xl font-extrabold text-black">Jaroo Studio HQ</h3>
 					<p class="text-sm md:text-lg text-black/80 mt-2">
@@ -656,25 +511,19 @@
 						Mashhad
 					</p>
 				</div>
-				<!-- Right Column -->
 				<div class="text-center">
 					<h3 class="text-lg md:text-2xl font-extrabold text-black">Connect With Us</h3>
 					<div class="flex flex-col items-center space-y-4 mt-2">
-						<a href="mailto:contact.jaroostudio@gmail.com"
-						   class="inline-block break-all text-black/80 hover:text-black transition-colors">
+						<a href="mailto:contact.jaroostudio@gmail.com" class="inline-block break-all text-black/80 hover:text-black transition-colors">
 							<i class="fas fa-envelope mr-2"></i>contact.jaroostudio@gmail.com
 						</a>
 						<div class="flex gap-6">
-							<a href="https://x.com/jaroostudio"
-							   class="text-black/80 hover:text-black transition-colors inline-flex items-center">
-								<!-- X icon -->
-								<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
-									 class="w-6 h-6" fill="currentColor">
+							<a href="https://x.com/jaroostudio" class="text-black/80 hover:text-black transition-colors inline-flex items-center">
+								<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="w-6 h-6" fill="currentColor">
 									<path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
 								</svg>
 							</a>
-							<a href="https://www.instagram.com/jaroo.studio/"
-							   class="text-black/80 hover:text-black transition-colors inline-flex items-center">
+							<a href="https://www.instagram.com/jaroo.studio/" class="text-black/80 hover:text-black transition-colors inline-flex items-center">
 								<i class="fab fa-instagram text-2xl"></i>
 							</a>
 						</div>
@@ -694,10 +543,8 @@
 				});
 			}
 		}
-
 		document.addEventListener('DOMContentLoaded', () => {
 			document.body.offsetHeight;
-
 			AOS.init({
 				duration: 1200,
 				once: true,
@@ -705,7 +552,6 @@
 				offset: 100,
 				disable: window.innerWidth < 768
 			});
-
 			document.querySelectorAll('a[href^="#"], [data-scroll]').forEach(anchor => {
 				anchor.addEventListener('click', function (e) {
 					e.preventDefault();
@@ -713,18 +559,15 @@
 				});
 			});
 		});
-
 		function toggleMobileMenu() {
 			const mobileMenu = document.querySelector('.mobile-menu');
 			const menuButton = document.querySelector('.mobile-menu-button');
 			mobileMenu.classList.toggle('active');
 			menuButton.classList.toggle('active');
 		}
-
 		document.addEventListener('click', (e) => {
 			const mobileMenu = document.querySelector('.mobile-menu');
 			const menuButton = document.querySelector('[aria-label="Toggle menu"]');
-
 			if (!mobileMenu.contains(e.target) && !menuButton.contains(e.target)) {
 				mobileMenu.classList.remove('active');
 				menuButton.setAttribute('aria-expanded', 'false');
