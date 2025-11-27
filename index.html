@@ -21,7 +21,7 @@
             --pixel-size: 4px;
         }
 
-/* --- GLOBAL LAYOUT & CURSOR LOCKDOWN --- */
+        /* --- GLOBAL LAYOUT & CURSOR LOCKDOWN --- */
         html {
             max-width: 100%;
             overflow-x: hidden;
@@ -32,7 +32,7 @@
             color: var(--fg-color);
             font-family: 'VT323', monospace;
             -webkit-font-smoothing: none;
-            
+
             /* STRICT OVERFLOW CONTROL */
             width: 100%;
             max-width: 100%;
@@ -41,7 +41,12 @@
         }
 
         /* Keep the rest of your cursor styles here if you wish... */
-        a, button, input, textarea, select, * {
+        a,
+        button,
+        input,
+        textarea,
+        select,
+        * {
             cursor: none !important;
         }
 
@@ -797,9 +802,12 @@
                             class="w-full bg-black border-2 border-gray-600 p-3 text-xl focus:border-white focus:outline-none transition-colors font-sans"
                             placeholder="Type message..."></textarea>
                     </div>
-                    <button type="button"
+                    <div id="console-output" class="font-mono text-xs text-green-500 mb-2 h-16 overflow-y-auto hidden">
+                    </div>
+
+                    <button type="button" onclick="submitTerminal()"
                         class="w-full bg-white text-black py-4 text-xl pixel-font hover:bg-gray-200 transition-colors bit-border">
-                        INITIATE_UPLOAD
+                        > INITIATE_UPLOAD
                     </button>
                 </form>
             </div>
@@ -1127,6 +1135,38 @@
                 closeGame();
             }
         });
+
+        async function submitTerminal() {
+            const output = document.getElementById('console-output');
+            output.classList.remove('hidden');
+            output.innerHTML = ''; // Clear previous
+
+            const logs = [
+                "Packeting data...",
+                "Encrypting (256-bit)...",
+                "Resolving host jaroo.studio...",
+                "Handshake established.",
+                "Uploading: 10%...",
+                "Uploading: 45%...",
+                "Uploading: 99%...",
+                "TRANSMISSION COMPLETE."
+            ];
+
+            for (const log of logs) {
+                const line = document.createElement('div');
+                line.textContent = `> ${log}`;
+                output.appendChild(line);
+                output.scrollTop = output.scrollHeight; // Auto scroll
+                await new Promise(r => setTimeout(r, Math.random() * 300 + 100));
+            }
+
+            // Reset form after success
+            setTimeout(() => {
+                alert("Message received in the void.");
+                output.classList.add('hidden');
+            }, 1000);
+        }
+
         window.addEventListener('load', runBootSequence);
     </script>
 </body>
