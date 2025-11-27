@@ -1214,6 +1214,38 @@
             // hackerEffect({ target: el }); 
         });
 
+        // --- SCROLL VELOCITY GLITCH ---
+        let lastScrollY = window.scrollY;
+        let skewTimeout;
+        const body = document.body;
+
+        window.addEventListener('scroll', () => {
+            const currentScrollY = window.scrollY;
+            const speed = currentScrollY - lastScrollY;
+
+            // Cap the skew so it doesn't break the layout (max 5 degrees)
+            const skew = Math.min(Math.max(speed * 0.1, -5), 5);
+
+            // Apply skew to the main content wrapper
+            // We use a slight scale to prevent white edges appearing
+            document.getElementById('main-content').style.transform =
+                `skewY(${skew}deg) scale(1.02)`;
+
+            // Reset text shadow for a "chromatic aberration" effect during movement
+            if (Math.abs(speed) > 5) {
+                document.body.style.textShadow = `${speed * 0.2}px 0px 2px rgba(255,0,0,0.7), ${-speed * 0.2}px 0px 2px rgba(0,255,255,0.7)`;
+            }
+
+            lastScrollY = currentScrollY;
+
+            // Reset to normal when scrolling stops
+            clearTimeout(skewTimeout);
+            skewTimeout = setTimeout(() => {
+                document.getElementById('main-content').style.transform = 'skewY(0deg) scale(1)';
+                document.body.style.textShadow = 'none';
+            }, 100);
+        });
+
         window.addEventListener('load', runBootSequence);
     </script>
 </body>
